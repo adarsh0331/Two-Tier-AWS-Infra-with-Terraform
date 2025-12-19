@@ -2,6 +2,8 @@
 
 ![Two-Tier Architecture](https://imgur.com/X4dGBg6.gif)
 
+<img width="926" height="1080" alt="image" src="https://github.com/user-attachments/assets/5fbb80e6-4ca8-4d40-95ff-5312d4236ba9" />
+
 ## 📌 Overview  
 
 This project demonstrates a **Two-Tier architecture on AWS** using **Terraform** for Infrastructure as Code (IaC). It follows a modular and security-enhanced approach to create a **scalable, secure, and maintainable** infrastructure.  
