@@ -20,33 +20,101 @@ This project demonstrates a **Two-Tier architecture on AWS** using **Terraform**
 ## 📖 Step-by-Step Guide  
 
 📌 **Read the full tutorial with screenshots**:  
-[Deploy Two-Tier Architecture on AWS using Terraform](https://blog.prodevopsguytech.com/deploy-two-tier-architecture-on-aws-using-terraform)  
+# Deploying a Secure Two-Tier Architecture on AWS using Terraform
 
----
+In the world of cloud computing, **Infrastructure as Code (IaC)** plays a pivotal role in automating the deployment and management of resources. This project provides a step-by-step guide to creating a **Two-Tier architecture** on AWS using **Terraform**. The setup ensures high availability, security, and scalability for hosting a static website.
 
-## 🚀 Getting Started  
+We adopt a **modular approach** with enhanced security measures. The infrastructure is organized into dedicated modules for better scalability, maintainability, and security.
 
-### 1️⃣ Clone the Repository  
+## Architecture Overview
+
+This two-tier setup includes:
+- **Web Tier**: Auto Scaling Group with EC2 instances behind an Application Load Balancer (ALB), served via CloudFront CDN.
+- **Database Tier**: RDS cluster in private subnets.
+- Additional components: VPC, Security Groups, WAF, ACM, Route53, IAM roles.
+## Directory Structure
+
+```
+DevOps Project-11/
+├── backend.tf                  # Terraform backend configuration (S3 state storage)
+├── main.tf                     # Main orchestration file
+├── variables.tf                # Variable definitions
+├── variables.tfvars            # Variable values
+└── modules/
+    ├── alb-tg/                 # ALB and Target Group module
+    ├── aws-autoscaling/        # Auto Scaling Group module
+    ├── aws-iam/                # IAM roles and policies
+    ├── aws-rds/                # RDS cluster module
+    ├── aws-vpc/                # VPC and networking module
+    ├── aws-waf-cdn-acm-route53/# WAF, CloudFront, ACM, Route53 module
+    └── security-group/         # Security Groups module
+```
+This modular design promotes reusability and clarity.
+
+## Prerequisites
+
+- An AWS account
+- Terraform installed locally
+- AWS Access Key and Secret Key configured (`aws configure`)
+- A registered domain name (with name servers updated at your provider)
+
+## Getting Started
+
+1. Clone the repository:
 
 ```bash
-git clone https://github.com/NotHarshhaa/DevOps-Projects
-cd DevOps-Projects/DevOps-Project-11/
-```  
+git clone https://github.com/adarsh0331/Two-Tier-AWS-Infra-with-Terraform
+```
 
-### 2️⃣ Initialize and Apply Terraform  
+2. Navigate to the project:
+
+```bash
+cd Two-Tier-AWS-Infra-with-Terraform
+```
+
+## Deployment
+
+Run these Terraform commands:
 
 ```bash
 terraform init
 terraform plan -var-file=variables.tfvars
 terraform apply -var-file=variables.tfvars --auto-approve
-```  
+```
 
-### 3️⃣ Cleanup (Destroy Infrastructure)  
+The deployment creates resources in this order:
+- VPC & Networking
+- Security Groups
+- EC2 Launch Template & Auto Scaling Group
+- Target Group & ALB
+- RDS Subnet Group & Cluster
+- Route53, ACM, WAF, CloudFront
+- IAM Roles & Instance Profiles
+- Terraform state stored in S3 with locking
+
+After deployment, access your domain in a browser to verify the static website is running.
+
+
+
+
+## Clean Up
+
+To avoid costs, destroy the resources:
 
 ```bash
 terraform destroy -var-file=variables.tfvars --auto-approve
-```  
+```
 
+(Optional) Remove the local repository:
+
+```bash
+rm -rf DevOps-Projects
+```
+
+## Conclusion
+
+This project demonstrates deploying a secure, scalable **Two-Tier architecture** on AWS using Terraform's modular best practices. It covers key services for high availability and security, ideal for hosting static websites or as a foundation for more complex applications.
+  
 ---
 
 ## 🏗️ Project Architecture Highlights  
@@ -76,24 +144,6 @@ terraform destroy -var-file=variables.tfvars --auto-approve
 
 ---
 
-## 🛠️ Author & Community  
-
-This project is crafted by **[Harshhaa](https://github.com/NotHarshhaa)** 💡.  
-I’d love to hear your feedback! Feel free to share your thoughts.  
-
-📧 **Connect with me:**
-
-- **GitHub**: [@NotHarshhaa](https://github.com/NotHarshhaa)  
-- **Blog**: [ProDevOpsGuy](https://blog.prodevopsguytech.com)  
-- **Telegram Community**: [Join Here](https://t.me/prodevopsguy)  
-- **LinkedIn**: [Harshhaa Vardhan Reddy](https://www.linkedin.com/in/harshhaa-vardhan-reddy/)  
-
----
-
 ## ⭐ Support the Project  
 
 If you found this helpful, consider **starring** ⭐ the repository and sharing it with your network! 🚀  
-
-### 📢 Stay Connected  
-
-![Follow Me](https://imgur.com/2j7GSPs.png)  
